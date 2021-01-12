@@ -1,0 +1,132 @@
+.create-binding {
+  padding: 30px;
+
+  @media screen and (min-width: 1500px) {
+    padding: 70px;
+  }
+}
+
+.name-field {
+  width: 300px;
+  margin-top: 16px;
+
+  @media screen and (min-width: 1300px) {
+    margin-right: 32px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.webhook-field {
+  width: 100%;
+  margin-top: 16px;
+
+  @media screen and (min-width: 1300px) {
+    width: calc(100% - 332px);
+  }
+}
+
+.section-header {
+  font-size: 20px;
+  margin-bottom: 8px;
+
+  &.second {
+    margin-top: 10px;
+  }
+}
+
+.description-field {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.add-polling-actions {
+  margin-top: 16px;
+
+  .mat-form-field {
+    margin-right: 16px;
+
+    &.type-field {
+      width: 100px;
+
+      @media screen and (max-width: 750px) {
+        width: calc(50% - 16px);
+      }
+    }
+
+    &.match-type-field {
+      width: 100px;
+
+      @media screen and (max-width: 750px) {
+        width: 50%;
+        margin-right: 0;
+      }
+    }
+
+    &.match-value-field {
+      @media screen and (max-width: 750px) {
+        width: calc(100% - 60px);
+      }
+    }
+  }
+}
+
+.action {
+  white-space: nowrap;
+  display: inline-block;
+  border-radius: 5px;
+  border: 2px dashed #ccc;
+  padding: 10px 10px 3px 10px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+
+  @media screen and (max-width: 750px) {
+    white-space: normal;
+    margin-right: 0;
+  }
+}
+
+.add-action-btn {
+  margin-bottom: 16px;
+}
+
+.action-btns {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cancel-btn {
+    margin-right: 32px;
+    width: 120px;
+  }
+
+  .create-btn {
+    width: 120px;
+    background-color: #9ccc65 !important;
+    color: white !important;
+  }
+}
+
+::ng-deep {
+  .snack-error {
+    background-color: #ef5350 !important;
+    max-width: initial !important;
+
+    .mat-simple-snackbar-action {
+      color: white;
+    }
+  }
+
+  .snack-success {
+    background-color: #9ccc65 !important;
+    max-width: initial !important;
+    min-width: initial !important;
+
+    .mat-simple-snackbar {
+      justify-content: center;
+    }
+  }
+}

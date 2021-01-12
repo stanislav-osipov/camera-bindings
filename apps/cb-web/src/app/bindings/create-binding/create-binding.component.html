@@ -1,0 +1,84 @@
+<div class="create-binding">
+  <mat-card>
+    <mat-card-content>
+      <form class="example-form" [formGroup]="form">
+        <div class="section-header">General</div>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-form-field class="name-field">
+          <input matInput
+            placeholder="Binding name"
+            formControlName="name"
+            [errorStateMatcher]="matcher"
+          >
+          <mat-error *ngIf="form.controls.name.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls.name.hasError('maxlength')">
+            Name is <strong>too</strong> long - max 30 symbols
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="webhook-field">
+          <input matInput
+            placeholder="Webhook URL"
+            formControlName="webhook"
+          >
+          <mat-hint><i>optional</i></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="description-field">
+          <textarea matInput
+            placeholder="Enter description"
+            formControlName="description"
+            [errorStateMatcher]="matcher"
+          ></textarea>
+          <mat-error *ngIf="form.controls.description.hasError('required')">
+            Description is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls.description.hasError('maxlength')">
+            Description is <strong>too</strong> long - max 200 symbols
+          </mat-error>
+        </mat-form-field>
+
+        <div class="section-header second">Actions</div>
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div class="add-polling-actions">
+          <div *ngFor="let action of actions.controls; let index = index" class="action">
+            <mat-form-field class="match-value-field">
+              <input matInput
+                [placeholder]="'something'"
+                [formControl]="action.controls.action"
+                [errorStateMatcher]="matcher"
+              >
+              <mat-error *ngIf="action.controls.action.hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-icon-button color="accent" (click)="onRemoveActionClick($event, index)">
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="add-action-btn">
+          <button mat-raised-button color="primary" class="add-button" (click)="onAddActionClick($event)">
+            <mat-icon>add_circle_outline</mat-icon>
+            Add action
+          </button>
+        </div>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div class="action-btns">
+          <button mat-raised-button color="warn" class="cancel-btn" (click)="onCancelClick($event)" [disabled]="creation">
+            Cancel
+          </button>
+          <button mat-raised-button class="create-btn" (click)="onCreateClick()" [disabled]="creation">
+            Create
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

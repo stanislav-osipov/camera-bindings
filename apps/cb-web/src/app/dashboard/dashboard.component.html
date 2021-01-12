@@ -1,0 +1,35 @@
+<div class="dashboard">
+  <ng-container *ngTemplateOutlet="dashboardCard; context: {
+    title: 'Bindings',
+    description: 'This section contains set of basic recognizable actions',
+    ctaText: 'Go to bindings',
+    route: 'bindings',
+    img: '/assets/folder-colored.svg'
+  }"></ng-container>
+
+  <ng-container *ngTemplateOutlet="dashboardCard; context: {
+    title: 'Menu 2',
+    description: 'Menu 2 description',
+    ctaText: 'Go to menu 2',
+    route: 'menu2',
+    img: '/assets/bell-colored.svg'
+  }"></ng-container>
+</div>
+
+<ng-template #dashboardCard let-title="title" let-description="description" let-ctaText="ctaText" let-route="route" let-img="img">
+  <mat-card>
+    <mat-card-content>
+      <div class="group-icon">
+        <div class="circle"></div>
+        <img [src]="img"/>
+      </div>
+      <h2>{{title}}</h2>
+      <div class="description">
+        <div class="description-text">{{description}}</div>
+      </div>
+      <div class="cta">
+        <button mat-raised-button color="primary" routerLink="{{'/' + route}}">{{ctaText}}</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

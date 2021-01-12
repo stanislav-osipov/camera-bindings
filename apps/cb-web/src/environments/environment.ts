@@ -4,6 +4,15 @@
 
 export const environment = {
   production: false,
+  firebase: {
+    apiKey: 'AIzaSyCCxmv81FZ_pu6M3W51HExLmbRrf8QhsFA',
+    authDomain: 'camera-bindings.firebaseapp.com',
+    projectId: 'camera-bindings',
+    storageBucket: 'camera-bindings.appspot.com',
+    messagingSenderId: '495977238599',
+    appId: '1:495977238599:web:59d0f51c7ed043880b6162',
+    measurementId: 'G-JW3V7PZE5H'
+  }
 };
 
 /*

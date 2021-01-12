@@ -1,0 +1,38 @@
+<div class="bindings">
+  <div class="create-binding-card" routerLink="create">
+    <div class="binding-icon">
+      <div class="circle"></div>
+      <img src="/assets/add_folder.svg"/>
+    </div>
+    <h3>Create a binding</h3>
+    <div class="description">
+      <div class="description-text">you will be redirected to creation form</div>
+    </div>
+  </div>
+
+  <mat-card class="binding-card" *ngFor="let binding of bindings$ | async">
+    <mat-card-content>
+      <div class="binding-header">
+        <h3>{{binding.value.name}}</h3>
+        <button mat-icon-button (click)="delete(binding.key)">
+          <mat-icon class="delete-icon">delete_outline</mat-icon>
+        </button>
+      </div>
+      <mat-divider [inset]="true" *ngIf="binding.value.webhook"></mat-divider>
+      <div *ngIf="binding.value.webhook" class="binding-url">{{binding.value.webhook}}</div>
+      <mat-divider [inset]="true"></mat-divider>
+      <div class="binding-description">{{binding.value.description}}</div>
+      <mat-divider [inset]="true"></mat-divider>
+      <div class="rules-list">
+        <div class="rules-list-content">
+          <div *ngFor="let rule of binding.value.rules" class="rule">
+            <div class="rule-content">
+              <div class="rule-icon"></div>
+              <div class="rule-value">{{rule.action}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
