@@ -1,14 +1,9 @@
 {
   "npmScope": "cb",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,28 +12,13 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
   "projects": {
-    "cb-web": {
-      "tags": []
-    },
-    "cb-web-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "cb-web"
-      ]
-    },
-    "cb-widget": {
-      "tags": []
-    }
+    "cb-web": { "tags": [] },
+    "cb-web-e2e": { "tags": [], "implicitDependencies": ["cb-web"] },
+    "cb-widget": { "tags": [] },
+    "cb-backend": { "tags": [] }
   }
 }
