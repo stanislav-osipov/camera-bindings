@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "projects": {
+    "cb-web": {
+      "projectType": "application",
+      "root": "apps/cb-web",
+      "sourceRoot": "apps/cb-web/src",
+      "prefix": "cb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/cb-web",
+            "index": "apps/cb-web/src/index.html",
+            "main": "apps/cb-web/src/main.ts",
+            "polyfills": "apps/cb-web/src/polyfills.ts",
+            "tsConfig": "apps/cb-web/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/cb-web/src/favicon.ico", "apps/cb-web/src/assets"],
+            "styles": ["apps/cb-web/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/cb-web/src/environments/environment.ts",
+                  "with": "apps/cb-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "cb-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "cb-web:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cb-web:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/cb-web/src/**/*.ts",
+              "apps/cb-web/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/cb-web"],
+          "options": {
+            "jestConfig": "apps/cb-web/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "cb-web-e2e": {
+      "root": "apps/cb-web-e2e",
+      "sourceRoot": "apps/cb-web-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/cb-web-e2e/cypress.json",
+            "tsConfig": "apps/cb-web-e2e/tsconfig.e2e.json",
+            "devServerTarget": "cb-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "cb-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/cb-web-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "cb-web"
+}
