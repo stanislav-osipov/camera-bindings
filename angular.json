@@ -16,8 +16,13 @@
             "polyfills": "apps/cb-web/src/polyfills.ts",
             "tsConfig": "apps/cb-web/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/cb-web/src/favicon.ico", "apps/cb-web/src/assets"],
-            "styles": ["apps/cb-web/src/styles.scss"],
+            "assets": [
+              "apps/cb-web/src/favicon.ico",
+              "apps/cb-web/src/assets"
+            ],
+            "styles": [
+              "apps/cb-web/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -78,7 +83,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/cb-web"],
+          "outputs": [
+            "coverage/apps/cb-web"
+          ],
           "options": {
             "jestConfig": "apps/cb-web/jest.config.js",
             "passWithNoTests": true
@@ -107,7 +114,78 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/cb-web-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/cb-web-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "cb-widget": {
+      "root": "apps/cb-widget",
+      "sourceRoot": "apps/cb-widget/src",
+      "projectType": "application",
+      "prefix": "cb-widget",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "nx-electron:build",
+          "options": {
+            "outputPath": "dist/apps/cb-widget",
+            "main": "apps/cb-widget/src/main.ts",
+            "tsConfig": "apps/cb-widget/tsconfig.app.json",
+            "assets": [
+              "apps/cb-widget/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/cb-widget/src/environments/environment.ts",
+                  "with": "apps/cb-widget/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "nx-electron:execute",
+          "options": {
+            "buildTarget": "cb-widget:build"
+          }
+        },
+        "package": {
+          "builder": "nx-electron:package",
+          "options": {
+            "name": "cb-widget",
+            "outputPath": "dist/packages",
+            "prepackageOnly": true
+          }
+        },
+        "make": {
+          "builder": "nx-electron:make",
+          "options": {
+            "name": "cb-widget",
+            "outputPath": "dist/executables"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/cb-widget/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/cb-widget/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
