@@ -55,14 +55,18 @@
               </mat-error>
             </mat-form-field>
 
-            <button mat-icon-button color="accent" (click)="onRemoveActionClick($event, index)">
+            <button mat-icon-button color="accent" (click)="onRemoveActionClick($event, index)" [disabled]="trained">
               <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" (click)="captureExample($event, index)" [disabled]="trained">
+              <mat-icon>camera_enhance</mat-icon>
             </button>
           </div>
         </div>
 
         <div class="add-action-btn">
-          <button mat-raised-button color="primary" class="add-button" (click)="onAddActionClick($event)">
+          <button mat-raised-button color="primary" class="add-button" (click)="onAddActionClick($event)" [disabled]="trained">
             <mat-icon>add_circle_outline</mat-icon>
             Add action
           </button>
@@ -77,8 +81,15 @@
           <button mat-raised-button class="create-btn" (click)="onCreateClick()" [disabled]="creation">
             Create
           </button>
+
+          <button mat-raised-button class="train-btn" (click)="onTrainClick()" [disabled]="creation">
+            {{ trained ? 'Predict' : 'Train' }}
+          </button>
         </div>
       </form>
     </mat-card-content>
   </mat-card>
+  <div class="webcam" cdkDrag>
+    <video #webcam autoplay playsinline muted width="224" height="224"></video>
+  </div>
 </div>

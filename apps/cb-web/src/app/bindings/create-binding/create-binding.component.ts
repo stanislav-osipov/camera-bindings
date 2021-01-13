@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { FormControl, NgForm, FormGroupDirective, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { OperationsService } from '../../core/operations.service';
+import { CameraService } from '../../core/camera.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,9 +19,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './create-binding.component.html',
   styleUrls: ['./create-binding.component.scss']
 })
-export class CreateBindingComponent {
+export class CreateBindingComponent implements AfterViewInit {
+  @ViewChild('webcam') webcam: ElementRef;
+
   public matcher = new MyErrorStateMatcher();
   public creation = false;
+  public trained = false;
 
   public actions = new FormArray([]);
   public form = new FormGroup({
@@ -33,7 +38,17 @@ export class CreateBindingComponent {
     private router: Router,
     private db: AngularFireDatabase,
     private matSnackBar: MatSnackBar,
-  ) {}
+    private operations: OperationsService,
+    private camera: CameraService,
+  ) {
+    this.operations.predictions$.subscribe(ix => console.log('Predicted:', this.actions.at(ix).value));
+  }
+
+  public ngAfterViewInit(): void {
+    this.camera.connect(this.webcam.nativeElement).then(
+      () => this.operations.warmup(),
+    );
+  }
 
   public onAddActionClick(event) {
     event.preventDefault();
@@ -41,12 +56,16 @@ export class CreateBindingComponent {
     this.actions.push(new FormGroup({
       action: new FormControl(null),
     }));
+
+    this.operations.prepareExamples(this.actions.length);
   }
 
   public onRemoveActionClick(event, index: number) {
     event.preventDefault();
 
     this.actions.removeAt(index);
+
+    this.operations.prepareExamples(this.actions.length);
   }
 
   public onCancelClick(event) {
@@ -87,5 +106,18 @@ export class CreateBindingComponent {
       });
       this.creation = false;
     });
+  }
+
+  public onTrainClick(): void {
+    this.trained ?
+      this.operations.predict() :
+      this.operations.train(this.actions.length).then(
+        () => this.trained = true,
+      );
+  }
+
+  public captureExample(event, index: number): void {
+    console.log('capture', index);
+    this.operations.addExample(index);
   }
 }
