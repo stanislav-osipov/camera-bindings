@@ -46,11 +46,11 @@
           <div *ngFor="let action of actions.controls; let index = index" class="action">
             <mat-form-field class="match-value-field">
               <input matInput
-                [placeholder]="'something'"
-                [formControl]="action.controls.action"
+                [placeholder]="'Name'"
+                [formControl]="action.controls.name"
                 [errorStateMatcher]="matcher"
               >
-              <mat-error *ngIf="action.controls.action.hasError('required')">
+              <mat-error *ngIf="action.controls.name.hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -61,6 +61,10 @@
 
             <button mat-icon-button color="warn" (click)="captureExample($event, index)" [disabled]="trained">
               <mat-icon>camera_enhance</mat-icon>
+            </button>
+
+            <button mat-icon-button color="primary" (click)="initiateKeyCapture($event, index)" [disabled]="trained">
+              <mat-icon>keyboard</mat-icon>
             </button>
           </div>
         </div>
@@ -82,14 +86,26 @@
             Create
           </button>
 
-          <button mat-raised-button class="train-btn" (click)="onTrainClick()" [disabled]="creation">
+          <button mat-raised-button class="train-btn" (click)="onTrainClick($event)" [disabled]="creation">
             {{ trained ? 'Predict' : 'Train' }}
           </button>
+
+          <mat-slide-toggle
+            *ngIf="trained"
+            color="primary"
+            formControlName="continuous"
+            [checked]="checked"
+          >
+            Continuous
+          </mat-slide-toggle>
         </div>
       </form>
     </mat-card-content>
   </mat-card>
   <div class="webcam" cdkDrag>
     <video #webcam autoplay playsinline muted width="224" height="224"></video>
+  </div>
+  <div class="keyboard" cdkDrag [hidden]="!kbVisible">
+    <cb-keyboard (key)="keySelected($event)"></cb-keyboard>
   </div>
 </div>

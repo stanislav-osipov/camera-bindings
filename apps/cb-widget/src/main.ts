@@ -3,7 +3,7 @@ import ElectronEvents from './app/events/electron.events';
 import UpdateEvents from './app/events/update.events';
 import { app, BrowserWindow } from 'electron';
 import App from './app/app';
-
+import { Keyboard } from './app/keyboard/keyboard';
 
 export default class Main {
 
@@ -35,3 +35,4 @@ Main.initialize();
 // bootstrap app
 Main.bootstrapApp();
 Main.bootstrapAppEvents();
+Keyboard.init();

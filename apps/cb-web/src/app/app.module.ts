@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -24,12 +25,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BindingsComponent } from './bindings/bindings.component';
 import { CreateBindingComponent } from './bindings/create-binding/create-binding.component';
+import { KeyboardComponent } from './keyboard/keyboard.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     BindingsComponent,
     CreateBindingComponent,
+    KeyboardComponent,
     AppComponent,
   ],
   imports: [
@@ -45,6 +48,7 @@ import { CreateBindingComponent } from './bindings/create-binding/create-binding
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),

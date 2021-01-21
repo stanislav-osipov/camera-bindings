@@ -17,7 +17,11 @@
             "tsConfig": "apps/cb-web/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/cb-web/src/favicon.ico", "apps/cb-web/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/cb-web/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/simple-keyboard/build/css/index.css",
+              "apps/cb-web/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -223,6 +227,27 @@
           "outputs": ["coverage/apps/cb-backend"],
           "options": {
             "jestConfig": "apps/cb-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "bridge": {
+      "root": "libs/bridge",
+      "sourceRoot": "libs/bridge/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/bridge/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/bridge"],
+          "options": {
+            "jestConfig": "libs/bridge/jest.config.js",
             "passWithNoTests": true
           }
         }

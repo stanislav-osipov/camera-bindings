@@ -47,7 +47,9 @@
     "@tensorflow/tfjs": "^2.8.3",
     "firebase": "^8.2.2",
     "reflect-metadata": "^0.1.13",
+    "robotjs": "^0.6.0",
     "rxjs": "~6.5.5",
+    "simple-keyboard": "^2.32.80",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"
   },

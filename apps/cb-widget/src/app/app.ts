@@ -64,11 +64,13 @@ export default class App {
         App.mainWindow = new BrowserWindow({ width: width, height: height, show: false, webPreferences: {
                 contextIsolation: true,
                 backgroundThrottling: false,
-                preload: join(__dirname, 'preload.js')
+                preload: join(__dirname, 'preload.js'),
+                nodeIntegration: true,
             }
         });
         App.mainWindow.setMenu(null);
         App.mainWindow.center();
+        App.mainWindow.webContents.openDevTools();
 
         // if main window is ready to show, close the splash window and show the main window
         App.mainWindow.once('ready-to-show', () => {
